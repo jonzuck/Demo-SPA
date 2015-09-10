@@ -4,19 +4,47 @@
   <title>Demo SPA</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="components/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="components/mui/dist/css/mui.min.css">
 </head>
 <body>
-<div class="container-fluid">
+<header data-mui-fluid>
 	<h1>Those SPAs: What's the deal?</h1>
-</div>
-<div class="container">
-	<div class="row">
-		<h1 class="col-md-4">Aenean ut condimentum neque, quis volutpat leo.</h1>
-		<p class="col-md-8">This is  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque a iaculis velit. Phasellus sit amet metus pulvinar, gravida ligula vitae, tincidunt augue. Aenean iaculis placerat dolor ac maximus. Nam dictum, diam eu porta fringilla, magna augue venenatis lorem, ac mattis metus ante tristique lectus. Integer ornare cursus velit, ut elementum lacus tincidunt nec. Curabitur lobortis, orci id fermentum tincidunt, lorem orci iaculis leo, ac ultricies metus diam et ex. Etiam imperdiet magna mauris, tristique placerat tortor venenatis vitae. Aliquam varius varius urna, sed maximus erat dignissim in. Maecenas eget congue felis. Aenean ut condimentum neque, quis volutpat leo. Quisque ipsum enim, aliquam eget placerat in, ultricies non lectus. Nam dui ligula, hendrerit id porta vehicula, blandit non enim.
-		text.</p>
+</header>
+<div class="mui-container">
+	<div class="mui-panel">
+		<h2>Overview:</h2>
+		<div>
+			<p>Single-page applications are dynamic websites (as opposed to a single static HTML page) which deliver the content with a single major page load (HTML, core CSS, etc.), using AJAX or similar requests for delivering further content.</p>
+			<p>The use of AJAX allows the remaining pages to load quickly in the background, presenting a near-instantaneous change to the user, rather than a disruptive page load. This effect is often called "responsive," although I prefer the term the Meteor community has introduced, "reactive," which avoids confusion with responsive web design.</p>
+			<p>Web sockets, part of the HTML5 recommendation, are an alternative to using AJAX, but AJAX remains far more popular currently, due to its integration into popular JavaScript frameworks such as jQuery, Angular, Backbone and many others, as well as frameworks in other languages, such as Ruby and PHP.</p>			
+		</div>
+	</div>
+	<div class="mui-panel">
+		<h2>Going Deeper</h2> 
+		<h3>Code reuse</h3>
+		<p>An SPA should minimize unique code and data and reuse as much of it as possible. A request to the server for another page of information, will not retrieve another complete HTML page from DOCTYPE to closing BODY tag. Rather, just those elements of the DOM that are changing in the new view will be reloaded. </p>
+		<p>In many cases, pages will have a similar HTML structure and a page request only switches out data within DOM elements, often through JSON or XML. Modern JavaScript libraries often include a template-making solution to convey data from the model to the view, such as Express, Handlebars/Mustache, Angular directives, and many others.</p>
+		<p>At any rate, only those items which needed to be loaded should be. This allows the entirety of the site to be viewable while minimizing load times and server activity. </p>
+	</div>
+	<div class="mui-panel">
+		<h2>Structure and Design Pattern</h2>
+		<p>SPAs can be either MVC (Model-View-Controller) or MVVM(Model-View - ViewModel). AngularJS, for instance, uses an MVVM model, with the HTML/CSS, and Angular directives functioning as the view, business logic handled by JavaScript objects as the model, and the rest of the code ($scope, controllers, and other  functions) as the ViewModel. </p>
+		<h3>States</h3>
+		<p>From Google:</p>
+		<blockquote>
+			<p>While traditional static web sites consist of many pages, a more appropriate term for AJAX applications is "state".    An application consists of a number of states, where each    state constitutes a specific user experience or a response  to user input. Examples of states: For a mail application, states could be base state, inbox, compose, etc. For a chess application, states could be base state, start new    game, but also current state x of the chessboard,    including information about past moves, whose player's turn it is, and so forth</p>			
+		</blockquote>
+	</div>
+	<div class="mui-panel">
+		<h2>Challenges</h2>
+		<h3>SEO</h3>
+		<p>SEO can be a major concern for JavaScript-based SPA websites, as search engine crawlers do not interact with Javascript.</p>
+   		<p>One way of compensating for this is to detect crawlers, and pre-render the site and serve it to the crawler as a static HTML page. FRC Mobile currently does this with Prerender.io.	</p>
+		<h3>Analytics</h3>
+		<p>Analytics is another difficulty that arises, since traditional pages do not load. However, many analytics services have created versions of their services to work in particular SPA frameworks. Some of those available for Angular include angular-google- analytics and Angulartics, which can work with Site Catalyst. DTM has taken SPAs into account as well. </p>
+		<h3>Initial Page Load</h3>
+		<p>Because so many of the framework's modules need to be available on the initial page load in an SPA, optimizing page load is essential. Lazy-loading is an important part of reducing the initial rendering of the view, as is caching components. </p>	
 	</div>
 </div>
-
 </body>
 </html>

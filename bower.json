@@ -1,0 +1,24 @@
+{
+  "name": "Demo-SPA",
+  "version": "0.0.0",
+  "homepage": "yes",
+  "authors": [
+    "jon.zuck@forrent.com"
+  ],
+  "description": "A demonstration SPA",
+  "main": "index.html",
+  "license": "none",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "src/components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "~1.4.5",
+    "jquery": ">= 1.9.1",
+    "grunt": "~0.4.5"
+  }
+}
