@@ -21,7 +21,7 @@ module.exports = function (grunt) {
 			},
 			dist: {
 				files: {
-					'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
+					'src/dist/js/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
 				}
 			}
 		},
