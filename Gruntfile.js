@@ -6,13 +6,13 @@ module.exports = function (grunt) {
 		concat: {
 			options: {
 				// define a string to put between each file in the concatenated output
-				separator: ';'
+				separator: '\n'
 			},
 			dist: {
 				// the files to concatenate
-				src: ['src/**/*.js'],
+				src: ['src/assets/js/*.js', 'src/components/jquery/dist/jquery.js', 'src/components/mui/dist/js/mui.js'],
 				// the location of the resulting JS file
-				dest: 'src/dist/js/<%= pkg.name %>.js'
+				dest: 'src/dist/js/<%= pkg.name %>.min.js'
 			}
 		},
 		uglify: {
@@ -23,27 +23,27 @@ module.exports = function (grunt) {
 				files: {
 					'dist/<%= pkg.name %>.min.js': ['<%= concat.dist.dest %>']
 				}
-			},
-			// qunit: {
-			//	files: ['test/**/*.html']
-			// }, 
-			jshint: {
-				// define the files to lint
-				files: ['Gruntfile.js', 'src/**/*.js', 'test/**/*.js'],
-				// configure JSHint (documented at http://www.jshint.com/docs/)
-				options: {
-					// more options here if you want to override JSHint defaults
-					globals: {
-						jQuery: true,
-						console: true,
-						module: true
-					}
-				}
-			},
-			watch: {
-				files: ['<%= jshint.files %>'],
-				tasks: ['jshint', 'qunit']
 			}
+		},
+		jshint: {
+			// define the files to lint
+			src: ['Gruntfile.js', 'src/assets/js/*.js'],
+			// configure JSHint (documented at http://www.jshint.com/docs/)
+			options: {
+				// more options here if you want to override JSHint defaults
+				globals: {
+					jQuery: true,
+					console: true,
+					module: true
+				}
+			}
+		},		
+		// qunit: {
+		//	files: ['test/**/*.html']
+		// }, 
+		watch: {
+			files: ['<%= jshint.src %>'],
+			tasks: ['jshint', 'qunit']
 		}
 	});
 
@@ -54,7 +54,7 @@ module.exports = function (grunt) {
 	// grunt.loadNpmTasks('grunt-contrib-qunit');
 	grunt.loadNpmTasks('grunt-contrib-watch');
 	grunt.loadNpmTasks('grunt-contrib-concat');
-
+	
 	//Grunt test (add qunit after setting up tests)
 	grunt.registerTask('test', ['jshint']);
 	
