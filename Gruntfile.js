@@ -27,7 +27,7 @@ module.exports = function (grunt) {
 		},
 		jshint: {
 			// define the files to lint
-			src: ['Gruntfile.js', 'src/assets/js/*.js'],
+			src: ['Gruntfile.js'],
 			// configure JSHint (documented at http://www.jshint.com/docs/)
 			options: {
 				// more options here if you want to override JSHint defaults
