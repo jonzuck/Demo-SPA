@@ -1,1 +1,0 @@
-alert('They\'re coming to take me away, haha!');
