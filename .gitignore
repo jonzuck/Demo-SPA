@@ -1,0 +1,5 @@
+node_modules
+src/.sass-cache/
+src/components/grunt
+src/assets/javascripts
+src/assets/fonts
