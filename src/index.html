@@ -8,14 +8,21 @@
 		<link rel="stylesheet" href="assets/css/jquery.bxslider.css">
 		<link rel="stylesheet" href="assets/css/styles.css">
 		<script data-main="assets/js/app.js" src="assets/js/lib/require.js"></script>
-			<!--
-		<script src="components/jquery/dist/jquery.min.js"></script>
-		<script src="components/jquery.bxslider/jquery.bxslider.min.js"></script>
-			-->
 	</head>
 	<body>
 		<div class="mui-container">
-			<header>
+			<header class="mui-panel">
+				<h1>Contents</h1>
+				<ul>
+					<li>
+						<a href="#spa">Those SPAs: What's the deal?</a>
+					</li>
+					<li>
+						<a href="#planets">Learn the Planets!</a>
+					</li>
+				</ul>
+			</header>
+			<header id="spa">
 				<h1>Those SPAs: What's the deal?</h1>
 			</header>
 			<section class="mui-panel">
@@ -125,13 +132,12 @@
 					</dd>
 				</dl>
 			</section>
+			<section id="planets" class="mui-panel mui-text-center">
+				<h1>Learn about the Planets</h1>
+				<button id="play" class=" mui-btn" data-mui-color="primary" data-mui-style="raised">Play!</button>
+			</section>
 		</div>
 		<script src="dist/js/SPA-Demo.min.js"></script>
-		<script>
-	
-	
-
-		</script>
 	</body>
 
 </html>

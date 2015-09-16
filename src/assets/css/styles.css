@@ -1,4 +1,8 @@
+body {
+	background-color: #d8ddbb;
+}
 .mui-container {
+	margin-top:2rem;
 	max-width: 70rem;
 }
 .bxcontainer {
@@ -6,5 +10,4 @@
 }
 .bxslider li {
 	padding: 0 20px 40px;
-
 }
