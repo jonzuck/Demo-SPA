@@ -5,6 +5,7 @@ var Planet = function (name, year, day, distance) {
   this.day = day;
   this.distance = distance;
 }; 
+
 // ALL the planets! :-)
 var solarSystem = {
   planet1: new Planet('Mercury', 0.24, 58.64, 0.39),
@@ -22,6 +23,22 @@ var play = document.getElementById('play');
 play.addEventListener('click', function () {
   var planetArray = [1, 2, 3, 4, 5, 6, 7, 8];
   var p = planetArray[Math.floor((Math.random() * 8))];
+
+  //fill in the information table
+  var pInfo = document.getElementById('planetInfo');
+  pInfo.constructor.prototype.list = list;
+  var list = function () {
+    for (var i in solarSystem) {
+      pInfo.innerHTML += "\n<tr>\<td>" +
+      solarSystem[i].name + "</td><td>" +
+      solarSystem[i].year + "</td><td>" +
+      solarSystem[i].day + "</td><td>" +
+      solarSystem[i].distance + "</td>\n</tr>";
+    }
+  };
+  list();
+
+
   
   //create a planet at random
   var randomPlanet = "planet" + p;
@@ -34,19 +51,20 @@ play.addEventListener('click', function () {
         "! \nMy year is about " + this.year +
         " of your years. \n\nWould you like to learn more?");
       if (result === true) {
-        msg = "Frimmin'!, \nMy day is about " + this.day +
-          " of your days, and \nI\'m " + this.distance +
-          " times as far from the sun as you.";
+        msg = "Frimmin'! \nMy day is about " + this.day +
+        " of your days, and \nI\'m " + this.distance +
+        " times as far from the sun as you.";
       } else {
         msg = "Fine. Be that way. \nHope your next probe crashes, jerk!";
       }
-      alert(msg);
       //if it is Earth
     } else if (solarSystem[randomPlanet] === solarSystem.planet3) {
-      alert('Hey, there, Earthling! You already know me. \nJust hit the button again for another planet.');
+      msg = "Hey, there, Earthling! You already know me. \nJust hit the button again for another planet.";
     }
+    alert(msg);
   };
 
   //launch the random planet's greeting.
   solarSystem[randomPlanet].greeting();
+
 });
