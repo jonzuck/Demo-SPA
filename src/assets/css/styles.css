@@ -11,3 +11,9 @@ body {
 .bxslider li {
 	padding: 0 20px 40px;
 }
+.top-header-row {
+	background-color: #ddd;	
+}
+.top-header-cell {
+	text-align: center;
+}
