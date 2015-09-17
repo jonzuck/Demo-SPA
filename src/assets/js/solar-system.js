@@ -29,11 +29,12 @@ play.addEventListener('click', function () {
   Planet.prototype.greeting = function () {
     //if it isn't Earth
     if (solarSystem[randomPlanet] !== solarSystem.planet3) {
+      var msg = "";
       var result = confirm("Hello, I'm " + this.name +
         "! \nMy year is about " + this.year +
         " of your years. \n\nWould you like to learn more?");
       if (result === true) {
-        var msg = "Frimmin'!, \nMy day is about " + this.day +
+        msg = "Frimmin'!, \nMy day is about " + this.day +
           " of your days, and \nI\'m " + this.distance +
           " times as far from the sun as you.";
       } else {
