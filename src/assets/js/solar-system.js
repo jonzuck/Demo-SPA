@@ -8,14 +8,14 @@ var Planet = function (name, year, day, distance) {
 
 // ALL the planets! :-)
 var solarSystem = {
-  planet1: new Planet('Mercury', 0.24, 58.64, 0.39),
-  planet2: new Planet('Venus', 0.62, 243, 0.72),
-  planet3: new Planet('Earth', 1, 1, 1),
-  planet4: new Planet('Mars', 1.88, 1.03, 1.52),
-  planet5: new Planet('Jupiter', 11.86, 0.41, 5.20),
-  planet6: new Planet('Saturn', 29.46, 0.43, 9.54),
-  planet7: new Planet('Uranus', 84.01, 0.72, 19.22),
-  planet8: new Planet('Neptune', 164.8, 0.67, 30.06)
+  planet1: new Planet('Mercury', '0.24', '58.64', '0.39'),
+  planet2: new Planet('Venus', '0.62', '243.00', '0.72'),
+  planet3: new Planet('Earth', '1.00', '1.00', '1.00'),
+  planet4: new Planet('Mars', '1.88', '1.03', '1.52'),
+  planet5: new Planet('Jupiter', '11.86', '0.41', '5.20'),
+  planet6: new Planet('Saturn', '29.46', '0.43', '9.54'),
+  planet7: new Planet('Uranus', '84.01', '0.72', '19.22'),
+  planet8: new Planet('Neptune', '164.8', '0.67', '30.06')
 };
 
 // play button
@@ -26,11 +26,12 @@ play.addEventListener('click', function () {
 
   //fill in the information table
   var pInfo = document.getElementById('planetInfo');
+  pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
   pInfo.constructor.prototype.list = list;
   var list = function () {
     for (var i in solarSystem) {
-      pInfo.innerHTML += "\n<tr>\<td>" +
-      solarSystem[i].name + "</td><td>" +
+      pInfo.innerHTML += "\n<tr>\<th>" +
+      solarSystem[i].name + "</th><td>" +
       solarSystem[i].year + "</td><td>" +
       solarSystem[i].day + "</td><td>" +
       solarSystem[i].distance + "</td>\n</tr>";
@@ -39,7 +40,6 @@ play.addEventListener('click', function () {
   list();
 
 
-  
   //create a planet at random
   var randomPlanet = "planet" + p;
 
@@ -64,7 +64,13 @@ play.addEventListener('click', function () {
     alert(msg);
   };
 
+  setTimeout(function () {
+    //Lebensraum!
+    window.scrollTo(0, document.body.scrollHeight);
+  }, 150);    
   //launch the random planet's greeting.
-  solarSystem[randomPlanet].greeting();
+  setTimeout(function () {
+    solarSystem[randomPlanet].greeting();
+  }, 300);
 
 });
