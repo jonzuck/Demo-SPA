@@ -2,3 +2,4 @@ node_modules
 src/.sass-cache/
 src/components/grunt/
 src/css/
+src/assets/img/
