@@ -28,7 +28,9 @@ requirejs.config({
      jquery: "jquery.min" 
     },
     "shim": {
-        "jquery.bxslider": ["jquery"]
+        "jquery.bxslider": ["jquery"],
+        "jquery.lazy":["jquery"],
+        "jquery.nasa":["jquery"]
     }
 });
 

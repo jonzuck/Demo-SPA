@@ -9,7 +9,7 @@
 		<link rel="stylesheet" href="assets/css/styles.css">
 		<script data-main="assets/js/app.js" src="assets/js/lib/require.js"></script>
 	</head>
-	<body>
+	<body id="body">
 		<div class="mui-container">
 			<header class="mui-panel">
 				<h1>Contents</h1>
@@ -134,13 +134,60 @@
 			</section>
 			<section id="planets" class="mui-panel mui-text-center">
 				<h1>Learn about the Planets</h1>
-				<p><button id="play" class="mui-btn" data-mui-color="primary" data-mui-style="raised">Play!</button></p>
-				<table id="planetInfo" style="width:100%;">
-					
+				<p>
+					<button id="play" class="mui-btn" data-mui-color="primary" data-mui-style="raised">Play!</button>
+				</p>
+				<table id="planetInfo" style="width:100%;"></table>
+				<table>
+					<tr>
+						<td>
+							<img id="Mercury" data-src="assets/img/Mercury.jpg" width="140" height="140">
+						</td>
+						<td>Read about
+							<a href="http://en.wikipedia.org/wiki/Mercury">Mercury</a>on Wikipedia!</td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
+					<tr>
+						<td></td>
+						<td></td>
+					</tr>
 				</table>
 			</section>
 		</div>
+		<section class="mui-container" data-mui-fluid="true">
+			<h2>NASA's Astronomical Picture of the Day</h2>
+			<span class="bold">API URL</span>
+			<pre id="reqObject" class="center"></pre>
+			<div class="mui-panel" data-mui-fluid="true">
+				<img id="apod_img_id" class="center" />
+			</div>
+			<div class="mui-panel" data-mui-fluid="true">
+				<iframe id="apod_vid_id" type="text/html"></iframe>
+				<h3 id="apod_title"></h3>
+				<p id="apod_explanation"></p>
+				<span class="bold">Return Object</span>
+			<pre id="returnObject"></pre>
+			</div>
+		</section>
 		<script src="dist/js/SPA-Demo.min.js"></script>
 	</body>
-
 </html>

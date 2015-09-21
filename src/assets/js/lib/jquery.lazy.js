@@ -1,6 +1,6 @@
-
 ; (function () {
 
+$.fn.lazy = function(){
   document.getElementById('body').addEventListener('click', function () {
     var merc = $("#Mercury");
     var win = $(window);
@@ -8,15 +8,15 @@
     var amountPageScrolled = win.scrollTop() + win.height();
     var inRange = amountPageScrolled > scrollToElement - 200;
   
-    alert(scrollToElement);
-    alert(amountPageScrolled > scrollToElement - 200);
+//    alert(scrollToElement);
+//    alert(inRange);
    
     if (inRange) {
-     merc.setAttribute('src', 'assets/img/Mercury.jpg');
+     merc.attr('src', 'assets/img/Mercury.jpg');
+     console.log(merc);
     }
   });
-
-
+};
 
 })();
 
