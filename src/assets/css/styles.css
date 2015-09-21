@@ -17,3 +17,6 @@ body {
 #planetInfo {
 	margin-bottom: 40px;
 }
+#planetResources td{
+	padding: 20px;
+}
