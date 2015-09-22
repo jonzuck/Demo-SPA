@@ -10,7 +10,7 @@
 
       for (var i = 0; i < lazyArray.length; i++) {
         var scrollToElement = $(lazyArray[i]).offset().top;
-        var inRange = amountPageScrolled > scrollToElement + 400;
+        var inRange = amountPageScrolled > scrollToElement - 200;
         if (inRange) {
           var imgSrc = lazyArray[i].getAttribute('data-src');
           lazyArray[i].setAttribute('src', imgSrc);
@@ -18,12 +18,19 @@
       }
     
       //for lazy-loading JSON info into an HTML element
-      var lazyHTML = $('.lazyHTML');
-      var scrollToHTML = lazyHTML.offset().top; //jQuery enabled
-      var inRangeHTML = amountPageScrolled > scrollToHTML + 100;
-      if (inRangeHTML) {
-        var obj = JSON.parse(window.galileo);
-        document.getElementById('galileo').innerHTML = obj.name + obj.significance + obj.inPopularCulture;
+      var scrollToHTML = $('.lazyHTML').offset().top; 
+      var inRange = amountPageScrolled > scrollToHTML - 200;
+      if (inRange && $('#galileo').children().length === 0) {
+        $.getJSON("galileo.json", function (data) {
+          var facts = [];
+          $.each(data, function (key, val) {
+            facts.push("<dt>" + key + "</dt>" + "<dd>" + val + "</dd>");
+          });
+          $("<dl/>", {
+            "id": "galileoFacts",
+            html: facts.join('')
+          }).appendTo('#galileo');
+        });
       }
     });
   };

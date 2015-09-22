@@ -22,7 +22,7 @@ function   ($, bxslider) {
 */
 
 requirejs.config({
-    "baseUrl": "../../Demo-SPA/src/assets/js/lib",
+    "baseUrl": "assets/js/lib",
     "paths": {
      "app": "../app",
      jquery: "jquery.min" 
