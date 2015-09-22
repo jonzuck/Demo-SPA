@@ -27,26 +27,22 @@ play.addEventListener('click', function () {
   //fill in the information table -- only the first time
   var pInfo = document.getElementById('planetInfo');
   if (pInfo.innerHTML === '') {
-  pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
-  pInfo.constructor.prototype.list = list;
-  var list = function () {
-    for (var i in solarSystem) {
-      pInfo.innerHTML += "\n<tr>\<th>" +
-      solarSystem[i].name + "</th><td>" +
-      solarSystem[i].year + "</td><td>" +
-      solarSystem[i].day + "</td><td>" +
-      solarSystem[i].distance + "</td>\n</tr>";
-    }
-  };
+    pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
+    pInfo.constructor.prototype.list = list;
+    var list = function () {
+      for (var i in solarSystem) {
+        pInfo.innerHTML += "\n<tr>\<th>" +
+        solarSystem[i].name + "</th><td>" +
+        solarSystem[i].year + "</td><td>" +
+        solarSystem[i].day + "</td><td>" +
+        solarSystem[i].distance + "</td>\n</tr>";
+      }
+    };
     setTimeout(function () {
-    //Lebensraum!
-    window.scrollBy(0, 150);
-    list();
-  }, 250);
-    setTimeout(function () {  
-  //launch the random planet's greeting after the list prints.
-    solarSystem[randomPlanet].greeting();
-  }, 500);
+      //Lebensraum!
+      window.scrollBy(0, 150);
+      list();
+    }, 250);
   }
 
 
@@ -75,7 +71,7 @@ play.addEventListener('click', function () {
   };
 
   setTimeout(function () {  
-  //launch the random planet's new greeting.
+    //launch the random planet's new greeting.
     solarSystem[randomPlanet].greeting();
   }, 300);
 });
