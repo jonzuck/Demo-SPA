@@ -1,7 +1,6 @@
 body {
 	background-color: #d8ddbb;
 }
-
 .bxcontainer {
 	padding: 0 25px;
 }
@@ -17,6 +16,6 @@ body {
 #planetInfo {
 	margin-bottom: 40px;
 }
-#planetResources td{
+#planetResources td {
 	padding: 20px;
 }
