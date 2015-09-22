@@ -3,3 +3,5 @@ src/.sass-cache/
 src/components/grunt/
 src/css/
 src/assets/img/
+src/dist/
+.vscode/
