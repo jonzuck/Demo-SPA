@@ -37,7 +37,12 @@ play.addEventListener('click', function () {
       solarSystem[i].distance + "</td>\n</tr>";
     }
   };
-  list();
+    setTimeout(function () {
+    //Lebensraum!
+    window.scrollBy(0, 150);
+    list();
+  }, 250);  
+  
 
 
   //create a planet at random
@@ -64,13 +69,9 @@ play.addEventListener('click', function () {
     alert(msg);
   };
 
-  setTimeout(function () {
-    //Lebensraum!
-    window.scrollTo(0, document.body.scrollHeight);
-  }, 150);    
+  setTimeout(function () {  
   //launch the random planet's greeting.
-  setTimeout(function () {
     solarSystem[randomPlanet].greeting();
-  }, 300);
+  }, 500);
 
 });
