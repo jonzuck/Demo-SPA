@@ -1338,6 +1338,6 @@
 
 		// returns the current jQuery object
 		return this;
-	}
-
+	};
+	
 })(jQuery);

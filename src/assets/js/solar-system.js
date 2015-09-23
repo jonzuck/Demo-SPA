@@ -24,20 +24,26 @@ play.addEventListener('click', function () {
   var planetArray = [1, 2, 3, 4, 5, 6, 7, 8];
   var p = planetArray[Math.floor((Math.random() * 8))];
 
-  //fill in the information table
+  //fill in the information table -- only the first time
   var pInfo = document.getElementById('planetInfo');
-  pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
-  pInfo.constructor.prototype.list = list;
-  var list = function () {
-    for (var i in solarSystem) {
-      pInfo.innerHTML += "\n<tr>\<th>" +
-      solarSystem[i].name + "</th><td>" +
-      solarSystem[i].year + "</td><td>" +
-      solarSystem[i].day + "</td><td>" +
-      solarSystem[i].distance + "</td>\n</tr>";
-    }
-  };
-  list();
+  if (pInfo.innerHTML === '') {
+    pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
+    pInfo.constructor.prototype.list = list;
+    var list = function () {
+      for (var i in solarSystem) {
+        pInfo.innerHTML += "\n<tr>\<th>" +
+        solarSystem[i].name + "</th><td>" +
+        solarSystem[i].year + "</td><td>" +
+        solarSystem[i].day + "</td><td>" +
+        solarSystem[i].distance + "</td>\n</tr>";
+      }
+    };
+    setTimeout(function () {
+      //Lebensraum!
+      window.scrollBy(0, 150);
+      list();
+    }, 250);
+  }
 
 
   //create a planet at random
@@ -59,18 +65,13 @@ play.addEventListener('click', function () {
       }
       //if it is Earth
     } else if (solarSystem[randomPlanet] === solarSystem.planet3) {
-      msg = "Hey, there, Earthling! You already know me. \nJust hit the button again for another planet.";
+      msg = "Hey, there, Earthling! \nYou already know me. \nJust hit the button again for another planet.";
     }
     alert(msg);
   };
 
-  setTimeout(function () {
-    //Lebensraum!
-    window.scrollTo(0, document.body.scrollHeight);
-  }, 150);    
-  //launch the random planet's greeting.
-  setTimeout(function () {
+  setTimeout(function () {  
+    //launch the random planet's new greeting.
     solarSystem[randomPlanet].greeting();
   }, 300);
-
 });

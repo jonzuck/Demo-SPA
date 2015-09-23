@@ -1,146 +1,241 @@
 <!DOCTYPE html>
 <html lang="en">
-	<head>
-		<title>Demo SPA</title>
-		<meta charset="ISO-8859-1">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
-		<link rel="stylesheet" href="components/mui/dist/css/mui.min.css">
-		<link rel="stylesheet" href="assets/css/jquery.bxslider.css">
-		<link rel="stylesheet" href="assets/css/styles.css">
-		<script data-main="assets/js/app.js" src="assets/js/lib/require.js"></script>
-	</head>
-	<body>
-		<div class="mui-container">
-			<header class="mui-panel">
-				<h1>Contents</h1>
-				<ul>
-					<li>
-						<a href="#spa">Those SPAs: What's the deal?</a>
-					</li>
-					<li>
-						<a href="#planets">Learn the Planets!</a>
-					</li>
-				</ul>
-			</header>
-			<header id="spa">
-				<h1>Those SPAs: What's the deal?</h1>
-			</header>
-			<section class="mui-panel">
-				<h2>Overview:</h2>
-				<p>Single-page applications are dynamic websites (as opposed to a single static HTML page) which deliver the content with a
-					single major page load (HTML, core CSS, etc.), using AJAX or similar requests for delivering further content.</p>
-				<p>The use of AJAX allows the remaining pages to load quickly in the background, presenting a near-instantaneous change to
-					the user, rather than a disruptive page load. This effect is often called "responsive," although I prefer the term the Meteor
-					community has introduced, "reactive," which avoids confusion with responsive web design.</p>
-				<p>Web sockets, part of the HTML5 recommendation, are an alternative to using AJAX, but AJAX remains far more popular currently,
-					due to its integration into popular JavaScript frameworks such as jQuery, Angular, Backbone and many others, as well as frameworks
-					in other languages, such as Ruby and PHP.</p>
-				<p>Use the slider below for more information.</p>
-			</section>
-			<div class="bxcontainer">
-				<ul class="bxslider">
-					<li>
-						<section>
-							<h2>Going Deeper</h2>
-							<h3>Code reuse</h3>
-							<p>An SPA should minimize unique code and data and reuse as much of it as possible. A request to the server for another page
-								of information, will not retrieve another complete HTML page from DOCTYPE to closing BODY tag. Rather, just those elements
-								of the DOM that are changing in the new view will be reloaded.</p>
-							<p>In many cases, pages will have a similar HTML structure and a page request only switches out data within DOM elements, often
-								through JSON or XML. Modern JavaScript libraries often include a template-making solution to convey data from the model to
-								the view, such as Express, Handlebars/Mustache, Angular directives, and many others.</p>
-							<p>At any rate, only those items which needed to be loaded should be. This allows the entirety of the site to be viewable while
-								minimizing load times and server activity.</p>
-						</section>
-					</li>
-					<li>
-						<section>
-							<h2>Structure and Design Pattern</h2>
-							<p>SPAs can be either MVC (Model-View-Controller) or MVVM(Model-View - ViewModel). AngularJS, for instance, uses an MVVM model,
-								with the HTML/CSS, and Angular directives functioning as the view, business logic handled by JavaScript objects as the model,
-								and the rest of the code ($scope, controllers, and other functions) as the ViewModel.</p>
-							<h3>States</h3>
-							<p>From Google:</p>
-							<blockquote>
-								<p>While traditional static web sites consist of many pages, a more appropriate term for AJAX applications is "state". An application
-									consists of a number of states, where each state constitutes a specific user experience or a response to user input. Examples
-									of states: For a mail application, states could be base state, inbox, compose, etc. For a chess application, states could
-									be base state, start new game, but also current state x of the chessboard, including information about past moves, whose
-									player's turn it is, and so forth</p>
-							</blockquote>
-							<p>Essentially, the "partial" bits of served on static sites were various pages, now there is, as far as the client is concerned,
-								a "page" which changes "states," for instance, switching between a "home page" state and a "search results" state, although
-								informally these are often called pages.</p>
-						</section>
-					</li>
-					<li>
-						<section>
-							<h2>Challenges</h2>
-							<h3>SEO</h3>
-							<p>SEO can be a major concern for JavaScript-based SPA websites, as search engine crawlers do not interact with Javascript.</p>
-							<p>One way of compensating for this is to detect crawlers, and pre-render the site and serve it to the crawler as a static
-								HTML page. FRC Mobile currently does this with Prerender.io.</p>
-							<p>Prerender uses so-called "middleware" to check if client requests are coming from a crawler or not. If so, the middleware
-								forwards the request to prerender.io which sends a pre-rendered static page to the server, which then sends it to the crawler.
-								Since the response comes from the server, the crawler sees this as a normal server response to its request, and is unaware
-								of the hand-off and return from prerender.io.</p>
-						</section>
-					</li>
-					<li>
-						<h2>Challenges, cont.</h2>
-						<h3>Analytics</h3>
-						<p>Analytics is another difficulty that arises, since traditional pages do not load. However, many analytics services have
-							created versions of their services to work in particular SPA frameworks. Some of those available for Angular include angular-google-
-							analytics and Angulartics, which can work with Site Catalyst. DTM has taken SPAs into account as well.</p>
-						<h3>Initial Page Load</h3>
-						<p>Because so many of the framework's modules need to be available on the initial page load in an SPA, optimizing page load
-							is essential. Lazy-loading is an important part of reducing the initial rendering of the view, as is caching components.</p>
-					</li>
-				</ul>
-			</div>
-			<section class="mui-panel">
-				<h2>References</h2>
-				<dl>
-					<dt>Single-Page Application</dt>
-					<dd>
-						<a href="https://en.wikipedia.org/wiki/Single-page_application">https://en.wikipedia.org/wiki/Single-page_application </a>
-					</dd>
-					<dt>Google AJAX-crawling specification</dt>
-					<dd>
-						<a href="https://developers.google.com/webmasters/ajax-crawling/docs/specification">https://developers.google.com/webmasters/ajax-crawling/docs/ 
-	specification</a>
-					</dd>
-					<dt>Prerender.io</dt>
-					<dd>
-						<a href="https://prerender.io/">https://prerender.io/</a>
-					</dd>
-					<dt>ASP.NET- Single-Page Applications: Build Modern, Responsive Web Apps with ASP.NET</dt>
-					<dd>
-						<a href="https://msdn.microsoft.com/en-us/magazine/dn463786.aspx">https://msdn.microsoft.com/en-us/magazine/dn463786.aspx</a>
-					</dd>
-					<dt>Adobe.com developer connection</dt>
-					<dd>
-						<a href="https://marketing.adobe.com/developer/forum/administration/ dynamic-tag-manager-omniture-single-page-app">https://marketing.adobe.com/developer/forum/administration/ dynamic-tag-manager-omniture-single-page-app</a>
-					</dd>
-					<dt>AirBnB Nerds</dt>
-					<dd>
-						<a href="http://nerds.airbnb.com/isomorphic-javascript-future-web-apps/">http://nerds.airbnb.com/isomorphic-javascript-future-web-apps/</a>
-					</dd>
-					<dt>Rising Stack</dt>
-					<dd>
-						<a href="https://blog.risingstack.com/from-angularjs-to-react-the-isomorphic-way/">https://blog.risingstack.com/from-angularjs-to-react-the-isomorphic-way/</a>
-					</dd>
-				</dl>
-			</section>
-			<section id="planets" class="mui-panel mui-text-center">
-				<h1>Learn about the Planets</h1>
-				<p><button id="play" class="mui-btn" data-mui-color="primary" data-mui-style="raised">Play!</button></p>
-				<table id="planetInfo" style="width:100%;">
-					
-				</table>
-			</section>
+
+<head>
+	<title>Demo SPA</title>
+	<meta charset="ISO-8859-1">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="components/mui/dist/css/mui.min.css">
+	<link rel="stylesheet" href="assets/css/jquery.bxslider.css">
+	<link rel="stylesheet" href="assets/css/styles.css">
+	<script data-main="assets/js/app.js" src="assets/js/lib/require.js"></script>
+</head>
+
+<body id="body">
+	<div class="mui-container">
+		<header class="mui-panel">
+			<h1>Contents</h1>
+			<ul>
+				<li>
+					<a href="#spa">Those SPAs: What's the deal?</a>
+				</li>
+				<li>
+					<a href="#planets">Learn the Planets!</a>
+				</li>
+				<li>
+					<a href="#kepler">Kepler's Laws of Planetary Motion</a>
+				</li>
+				<li>
+					<a href="#galileo">Galileo's significance</a>
+				</li>
+				<li>
+					<a href="#apod">Astronomical Picture of the Day</a>
+				</li>
+			</ul>
+		</header>
+		<header id="spa">
+			<h1>Those SPAs: What's the deal?</h1>
+		</header>
+		<section class="mui-panel">
+			<h2>Overview:</h2>
+			<p>Single-page applications are dynamic websites (as opposed to a single static HTML page) which deliver the content with
+				a single major page load (HTML, core CSS, etc.), using AJAX or similar requests for delivering further content.</p>
+			<p>The use of AJAX allows the remaining pages to load quickly in the background, presenting a near-instantaneous change to
+				the user, rather than a disruptive page load. This effect is often called "responsive," although I prefer the term the
+				Meteor community has introduced, "reactive," which avoids confusion with responsive web design.</p>
+			<p>Web sockets, part of the HTML5 recommendation, are an alternative to using AJAX, but AJAX remains far more popular currently,
+				due to its integration into popular JavaScript frameworks such as jQuery, Angular, Backbone and many others, as well
+				as frameworks in other languages, such as Ruby and PHP.</p>
+			<p>Use the slider below for more information.</p>
+		</section>
+		<div class="bxcontainer">
+			<ul class="bxslider">
+				<li>
+					<section>
+						<h2>Going Deeper</h2>
+						<h3>Code reuse</h3>
+						<p>An SPA should minimize unique code and data and reuse as much of it as possible. A request to the server for another
+							page of information, will not retrieve another complete HTML page from DOCTYPE to closing BODY tag. Rather, just those
+							elements of the DOM that are changing in the new view will be reloaded.</p>
+						<p>In many cases, pages will have a similar HTML structure and a page request only switches out data within DOM elements,
+							often through JSON or XML. Modern JavaScript libraries often include a template-making solution to convey data from
+							the model to the view, such as Express, Handlebars/Mustache, Angular directives, and many others.</p>
+						<p>At any rate, only those items which needed to be loaded should be. This allows the entirety of the site to be viewable
+							while minimizing load times and server activity.</p>
+					</section>
+				</li>
+				<li>
+					<section>
+						<h2>Structure and Design Pattern</h2>
+						<p>SPAs can be either MVC (Model-View-Controller) or MVVM(Model-View - ViewModel). AngularJS, for instance, uses an MVVM
+							model, with the HTML/CSS, and Angular directives functioning as the view, business logic handled by JavaScript objects
+							as the model, and the rest of the code ($scope, controllers, and other functions) as the ViewModel.</p>
+						<h3>States</h3>
+						<p>From Google:</p>
+						<blockquote>
+							<p>While traditional static web sites consist of many pages, a more appropriate term for AJAX applications is "state".
+								An application consists of a number of states, where each state constitutes a specific user experience or a response
+								to user input. Examples of states: For a mail application, states could be base state, inbox, compose, etc. For a
+								chess application, states could be base state, start new game, but also current state x of the chessboard, including
+								information about past moves, whose player's turn it is, and so forth</p>
+						</blockquote>
+						<p>Essentially, the "partial" bits of served on static sites were various pages, now there is, as far as the client is
+							concerned, a "page" which changes "states," for instance, switching between a "home page" state and a "search results"
+							state, although informally these are often called pages.</p>
+					</section>
+				</li>
+				<li>
+					<section>
+						<h2>Challenges</h2>
+						<h3>SEO</h3>
+						<p>SEO can be a major concern for JavaScript-based SPA websites, as search engine crawlers do not interact with Javascript.</p>
+						<p>One way of compensating for this is to detect crawlers, and pre-render the site and serve it to the crawler as a static
+							HTML page. FRC Mobile currently does this with Prerender.io.</p>
+						<p>Prerender uses so-called "middleware" to check if client requests are coming from a crawler or not. If so, the middleware
+							forwards the request to prerender.io which sends a pre-rendered static page to the server, which then sends it to
+							the crawler. Since the response comes from the server, the crawler sees this as a normal server response to its request,
+							and is unaware of the hand-off and return from prerender.io.</p>
+					</section>
+				</li>
+				<li>
+					<h2>Challenges, cont.</h2>
+					<h3>Analytics</h3>
+					<p>Analytics is another difficulty that arises, since traditional pages do not load. However, many analytics services have
+						created versions of their services to work in particular SPA frameworks. Some of those available for Angular include
+						angular-google- analytics and Angulartics, which can work with Site Catalyst. DTM has taken SPAs into account as well.</p>
+					<h3>Initial Page Load</h3>
+					<p>Because so many of the framework's modules need to be available on the initial page load in an SPA, optimizing page
+						load is essential. Lazy-loading is an important part of reducing the initial rendering of the view, as is caching components.</p>
+				</li>
+			</ul>
 		</div>
-		<script src="dist/js/SPA-Demo.min.js"></script>
-	</body>
+		<section class="mui-panel">
+			<h2>References</h2>
+			<dl>
+				<dt>Single-Page Application</dt>
+				<dd>
+					<a href="https://en.wikipedia.org/wiki/Single-page_application">https://en.wikipedia.org/wiki/Single-page_application </a>
+				</dd>
+				<dt>Google AJAX-crawling specification</dt>
+				<dd>
+					<a href="https://developers.google.com/webmasters/ajax-crawling/docs/specification">https://developers.google.com/webmasters/ajax-crawling/docs/ 
+	specification</a>
+				</dd>
+				<dt>Prerender.io</dt>
+				<dd>
+					<a href="https://prerender.io/">https://prerender.io/</a>
+				</dd>
+				<dt>ASP.NET- Single-Page Applications: Build Modern, Responsive Web Apps with ASP.NET</dt>
+				<dd>
+					<a href="https://msdn.microsoft.com/en-us/magazine/dn463786.aspx">https://msdn.microsoft.com/en-us/magazine/dn463786.aspx</a>
+				</dd>
+				<dt>Adobe.com developer connection</dt>
+				<dd>
+					<a href="https://marketing.adobe.com/developer/forum/administration/ dynamic-tag-manager-omniture-single-page-app">https://marketing.adobe.com/developer/forum/administration/ dynamic-tag-manager-omniture-single-page-app</a>
+				</dd>
+				<dt>AirBnB Nerds</dt>
+				<dd>
+					<a href="http://nerds.airbnb.com/isomorphic-javascript-future-web-apps/">http://nerds.airbnb.com/isomorphic-javascript-future-web-apps/</a>
+				</dd>
+				<dt>Rising Stack</dt>
+				<dd>
+					<a href="https://blog.risingstack.com/from-angularjs-to-react-the-isomorphic-way/">https://blog.risingstack.com/from-angularjs-to-react-the-isomorphic-way/</a>
+				</dd>
+			</dl>
+		</section>
+		<section id="planets" class="mui-panel mui-text-center">
+			<h1>Learn about the Planets</h1>
+			<p>
+				<button id="play" class="mui-btn" data-mui-color="primary" data-mui-style="raised">Play!</button>
+			</p>
+			<table id="planetInfo" style="width:100%;"></table>
+			<table id="planetResources">
+				<tr>
+					<td>
+						<img id="Mercury" class="lazyload" data-src="assets/img/Mercury.jpg" width="140" height="140">
+					</td>
+					<td>Read about
+						<a href="http://en.wikipedia.org/wiki/Mercury">Mercury</a> on Wikipedia!
+						<td>
+							<img id="Jupiter" class="lazyload" data-src="assets/img/Jupiter.jpg" width="140" height="140">
+						</td>
+						<td>Read about
+							<a href="http://en.wikipedia.org/wiki/Jupiter">Jupiter</a> on Wikipedia!</td>
+				</tr>
+				<tr>
+					<td>
+						<img id="Venus" class="lazyload" data-src="assets/img/Venus.jpg" width="140" height="140">
+					</td>
+					<td>Read about
+						<a href="http://en.wikipedia.org/wiki/Venus">Venus</a> on Wikipedia!</td>
+					<td>
+						<img id="Saturn" class="lazyload" data-src="assets/img/Saturn.jpg" width="140" height="140">
+					</td>
+					<td>Read about
+						<a href="http://en.wikipedia.org/wiki/Saturn">Saturn</a> on Wikipedia!</td>
+				</tr>
+				<tr>
+					<td>
+						<img id="Earth" class="lazyload" data-src="assets/img/Earth.jpg" width="140" height="140">
+					</td>
+					<td>Read about
+						<a href="http://en.wikipedia.org/wiki/Earth">Earth</a> on Wikipedia!</td>
+					<td>
+						<img id="Uranus" class="lazyload" data-src="assets/img/Uranus.jpg" width="140" height="140">
+					</td>
+					<td>Read about
+						<a href="http://en.wikipedia.org/wiki/Uranus">Uranus</a> on Wikipedia!</td>
+				</tr>
+				<tr>
+					<td>
+						<img id="Mars" class="lazyload" data-src="assets/img/Mars.jpg" width="140" height="140">
+					</td>
+					<td>Read about
+						<a href="http://en.wikipedia.org/wiki/Mars">Mars</a> on Wikipedia!</td>
+					<td>
+						<img id="Neptune" class="lazyload" data-src="assets/img/Neptune.jpg" width="140" height="140">
+					</td>
+					<td>Read about
+						<a href="http://en.wikipedia.org/wiki/Neptune">Neptune</a> on Wikipedia!</td>
+				</tr>
+			</table>
+		</section>
+		<section>
+			<header id="kepler">
+				<h1>Kepler's Laws of Planetary Motion</h1>
+			</header>
+			<div class="mui-panel">
+				<p>Scroll down to learn a whole lot more about the guy who learned <em>how</em> the planets move!</p>
+				<iframe class="lazyload md-col-8" style="width:100%; height:300px; margin-bottom:40px" data-src="https://en.wikipedia.org/wiki/Kepler's_laws_of_planetary_motion#bodyContent"
+				frameborder="0">
+				</iframe>
+			</div>
+		</section>
+		<section class="lazyHTML mui-panel">
+			<h2>Galileo</h2>
+			<div id="galileo">
+				
+			</div>
+		</section>
+	</div>
+	<section class="mui-container" data-mui-fluid="true">
+		<header class="mui-panel">
+			<h2>NASA's Astronomical Picture of the Day</h2>
+			<span class="bold">API URL</span>
+			<pre id="reqObject" class="center"></pre>
+		</header>
+		<div class="mui-panel" data-mui-fluid="true">
+			<img id="apod_img_id" class="center" />
+		</div>
+		<div class="mui-panel" data-mui-fluid="true">
+			<iframe id="apod_vid_id" type="text/html"></iframe>
+			<h3 id="apod_title"></h3>
+			<p id="apod_explanation"></p>
+			<span class="bold">Return Object</span>
+			<pre id="returnObject"></pre>
+		</div>
+	</section>
+	<script src="dist/js/SPA-Demo.min.js"></script>
+</body>
 
 </html>
