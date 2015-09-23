@@ -1,14 +1,20 @@
 body {
 	background-color: #d8ddbb;
 }
-.bxcontainer {
-	padding: 0 25px;
+h2+h3 {
+	margin-top:0;
 }
-.bxslider li {
-	padding: 0 20px 40px;
+.bxslider li section {
+	padding: 0 40px 40px;
 }
 .top-header-row {
 	background-color: #ddd;	
+}
+th:first-child {
+	padding-left: 10px;
+}
+th:last-child, #planetInfo td:last-child {
+	padding-right: 10px;
 }
 .top-header-cell {
 	text-align: center;
@@ -16,6 +22,29 @@ body {
 #planetInfo {
 	margin-bottom: 40px;
 }
+#planetInfo td:last-child,
+#planetInfo th:last-child
+ {
+	text-align: right;
+}
 #planetResources td {
 	padding: 20px;
+	background-color: #000;
+	color: #fff;
+	text-align:right;
+}
+iframe {
+	border: inset #ddd 10px;
+}
+dt {
+	font-weight: bold;
+}
+dd {
+	margin-bottom: 1em;
+}
+ul.square {
+	list-style: square;
+}
+ul.diamond {
+	list-style: disc;
 }
