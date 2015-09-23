@@ -5,3 +5,4 @@ src/css/
 src/assets/img/
 src/dist/
 .vscode/
+src/dist/js/SPA-Demo.min.js
