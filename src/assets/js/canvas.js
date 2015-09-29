@@ -18,31 +18,55 @@ Math.TAU = Math.PI * 2; // Throwing in the tau. Get it? Tau ~ towel?
 var coords = document.getElementById('coords');
 var rightDown = false;
 var leftDown = false;
-var intervalId = 0;
-var animFrame; //request/clear animation frame
+var animFrame; // request/clear animation frame
+var bricks;
+var brickRows;
+var brickCols;
+var brickW;
+var brickH;
+var brickPadding; // kind of a contradiction in terms, isn't it?
+var rowColors = ["#ca8", "#a86", "#864", "#632", "#410"];
 
-  // keypress info necessary for the paddle
-  //set rightDown or leftDown if the right or left keys are down
-  document.addEventListener('keydown', function (evt) {
-    if (evt.which == 39) rightDown = true;
-    else if (evt.which == 37) leftDown = true;
-  });
+function brickInit() {
+  brickRows = 5;
+  brickCols = 5;
+  brickW = (cvW / brickCols) - 1;
+  brickH = 15;
+  brickPadding = 1;
 
-  //and unset them when the right or left key is released
-  document.addEventListener('keyup', function (evt) {
-    if (evt.which == 39) rightDown = false;
-    else if (evt.which == 37) leftDown = false;
-  });
+  bricks = new Array(brickRows);
+  for (var i = 0; i < brickRows; i++) {
+    bricks[i] = new Array(brickCols);
+    for (var j = 0; j < brickCols; j++) {
+      bricks[i][j] = 1;
+    }
+  }
+}
+
+// keypress info for the paddle
+//set rightDown or leftDown if the right or left keys are down
+document.addEventListener('keydown', function (e) {
+  if (e.which == 39) rightDown = true;
+  else if (e.which == 37) leftDown = true;
+});
+
+//and unset them when the right or left key is released
+document.addEventListener('keyup', function (e) {
+  if (e.which == 39) rightDown = false;
+  else if (e.which == 37) leftDown = false;
+});
+ 
   
 //make a ball 
 var ball = {
-  radius: 10,
-  x: Math.floor(Math.random() * 800 + 1),
-  y: Math.floor(Math.random() * 40 + 1),
   h: 20,
   w: 20,
+  radius: 10,
+  //add some randomness to ball's starting position and momentum
+  x: Math.floor(Math.random() * 800 + 1),
+  y: Math.floor(Math.random() * 25 + 85),
   dirX: Math.floor(Math.random() * 7 + 4),
-  dirY: Math.floor(Math.random() * 3 + 1),
+  dirY: Math.floor(Math.random() * 5 + 2),
   color: 'goldenrod',
   draw: function () {
     cx.beginPath();
@@ -53,10 +77,9 @@ var ball = {
   }
 };
 
-
-//paddle 
+// paddle 
 var paddle = {
-  x: cvW /2 - 50 ,
+  x: cvW / 2 - 50,
   y: cvH - 10,
   h: 10,
   w: 100,
@@ -66,9 +89,9 @@ var paddle = {
   }
 };
 
-//clear (for trailing animation effect)
+// clear (for trailing animation effect)
 function clear() {
-  cx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+  cx.fillStyle = 'rgba(0, 0, 0, 0.4)';
   cx.fillRect(0, 0, cvW, cvH);
 }
 
@@ -76,50 +99,73 @@ function clear() {
 function reset() {
   cx.fillStyle = 'rgb(0, 0, 0)';
   cx.fillRect(0, 0, cvW, cvH);
-  console.log(cx);
 }  
-//drawing movement and animation
+
+// the heart of the game: drawing movement and animation
 function draw() {
+  // draw bricks
+  for (var i = 0; i < brickRows; i++) {
+    cx.fillStyle = rowColors[i];
+    for (var j=0; j < brickCols; j++) {
+      if (bricks[i][j] == 1) {
+       cx.fillRect((j * (brickW + brickPadding)) + brickPadding, 
+             (i * (brickH + brickPadding)) + brickPadding,
+             brickW, brickH);
+      }
+    }
+  }
+  // detect brick strikes
+ var rowheight = brickH + brickPadding;
+ var colwidth = brickW + brickPadding;
+ var row = Math.floor(ball.y/rowheight);
+ var col = Math.floor(ball.x/colwidth);
+  //if hit, reverse motion and mark the brick as broken
+  if (ball.y < brickRows * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
+    ball.dirY = -ball.dirY;
+    bricks[row][col] = 0;
+  } 
+  
   clear();
   
   // draw ball and paddle
-  ball.draw();
   paddle.draw();
-
+  ball.draw();
   ball.x += ball.dirX;
   ball.y += ball.dirY;
 
-  if (rightDown) paddle.x += 5;
-  else if (leftDown) paddle.x -= 5;
+  if (rightDown && paddle.x < cvW - paddle.w) paddle.x += 8;
+  else if (leftDown && paddle.x > 0) paddle.x -= 8;
 
-  coords.innerHTML = ball.x + ', ' + ball.y;
-  // ball boundary and paddle interaction
-  var hit =
-    (ball.y === paddle.y - ball.h) &&
-    (ball.x > paddle.x && ball.x < paddle.x + paddle.w);
   animFrame = window.requestAnimationFrame(draw); 
-
-//   console.log(ball.x + ', ' + ball.y + ', ' + hit + ', ' + paddle.x + ', ' + paddle.y + ', ' + rightDown);
+  
+  // ball boundary and paddle interaction
   if (ball.x + ball.w > cvW || ball.x - ball.w < 0) {
     ball.dirX = -ball.dirX;
   }
+  var hit =
+    (ball.y === paddle.y - ball.h) &&
+    (ball.x + ball.radius > paddle.x && 
+    ball.x - ball.radius < paddle.x + paddle.w);
+     
   if (ball.y < 0 || hit) {
     ball.dirY = -ball.dirY;
   } if (ball.y > cvH) {
-    alert('You lose!');
+        setTimeout(function(){ 
+      alert('You lose!');
+      }, 700); 
     cancelAnimationFrame(animFrame);
-    reset();
   }
 }
 
-//start / stop motion 
+// start / stop game 
 document.getElementById('start').addEventListener('click', function () {
   cancelAnimationFrame(animFrame);
-  reset(); 
-  ball.x = Math.floor(Math.random() * 800 + 1);
-  ball.y = Math.floor(Math.random() * 40 + 1);
+  reset();
+  brickInit();
+  ball.x = Math.floor(Math.random() * 600 + 1);
+  ball.y = Math.floor(Math.random() * 25 + 85);
   ball.dirX = Math.floor(Math.random() * 7 + 4);
-  ball.dir = Math.floor(Math.random() * 3 + 1);
+  ball.dirY = Math.floor(Math.random() * 5 + 2);
   ball.draw();
   animFrame = window.requestAnimationFrame(draw);
 });
