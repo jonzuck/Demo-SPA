@@ -262,16 +262,20 @@
 		</section>
 
 		<section>
-			<h1 id="mycanvas">My Canvas</h1><span class="mui-text-right">top</span>
+			<h1>My Canvas</h1><span class="mui-text-right">top</span>
 			<div class="mui-panel mui-text-center">
 				<p id="coords"></p>
 				<div id="canvasBg">
-					<canvas id="canvas" height="480" width="1000">
+					<canvas id="canvas" height="480" width="800">
 						<p>Sorry, your browser doesn't support canvas. Please, please, please upgrade. You'll be doing yourself a favor. And me.</p>
 					</canvas>
 				</div>
+				<div id="mycanvas" class="mui-text-center">
+					<p>Click the Start button to begin, and use the left and right arrows to move the paddle.</p>
+					<button id="start">Start</button>
+					<button id="stop">Stop</button>
+				</div>
 			</div>
-			
 		</section>
 	</div>
 	<script src="dist/js/SPA-Demo.min.js"></script>
