@@ -4,7 +4,7 @@
 // Or, if you prefer, watch some Numberphile videos.
 // Now that you're familiar with tau, do you not agree that Math.TAU 
 // makes a heck of a lot more sense than Math.PI?
-// Does anyoe really find it easier to think in fractions of a semicircle
+// Does anyone really find it easier to think in fractions of a semicircle
 // than fractions of a circle?
 // I, for one, do not. 
 // Enough with the jibber-jabber: Die, PI!
@@ -18,7 +18,7 @@ Math.TAU = Math.PI * 2; // Throwing in the tau. Get it? Tau ~ towel?
 var coords = document.getElementById('coords');
 var rightDown = false;
 var leftDown = false;
-var animFrame; // request/clear animation frame
+var animFrame; 
 var bricks;
 var brickRows;
 var brickCols;
@@ -46,21 +46,25 @@ function brickInit() {
 // keypress info for the paddle
 //set rightDown or leftDown if the right or left keys are down
 document.addEventListener('keydown', function (e) {
-  if (e.which == 39) rightDown = true;
-  else if (e.which == 37) leftDown = true;
+  if (e.which == 39) {
+    rightDown = true;
+  }
+  else if (e.which == 37){
+    leftDown = true;
+  }
 });
 
 //and unset them when the right or left key is released
 document.addEventListener('keyup', function (e) {
-  if (e.which == 39) rightDown = false;
-  else if (e.which == 37) leftDown = false;
+  if (e.which == 39) {
+    rightDown = false;
+  } else if (e.which == 37) {
+    leftDown = false;
+  }
 });
-
   
 //make a ball 
 var ball = {
-  h: 20,
-  w: 20,
   r: 10,
   //add some randomness to ball's starting position and momentum
   x: Math.floor(Math.random() * 800 + 1),
@@ -142,13 +146,15 @@ function draw() {
   if (ball.x + ball.r > cvW || ball.x - ball.r < 0) {
     ball.dirX = -ball.dirX;
   }
+  // define a hit with the paddle 
   var hit = (ball.y + ball.r > paddle.y) && (ball.x > paddle.x && ball.x < paddle.x + paddle.w);    
   if (ball.y - ball.r < 0 || hit) {
     ball.dirY = -ball.dirY;
-  } if (ball.y + ball.r > cvH) {
-        setTimeout(function(){ 
-      alert('You lose!');
-      }, 700); 
+  }
+  if (ball.y + ball.r > cvH) {
+    setTimeout(function(){ 
+    }, 700); 
+    alert('Ha, ha! You lose!');
     cancelAnimationFrame(animFrame);
   } console.log(ball.x, ball.y,ball.dirX, ball.dirY);
 }
