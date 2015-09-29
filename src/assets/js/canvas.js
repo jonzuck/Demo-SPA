@@ -1,7 +1,9 @@
 // Drawing with radians is the best argument ever for using TAU instead of PI.
 // Read the Tau Manifesto at http://tauday.com/tau-manifesto.
-// Go ahead, read it really. I'll wait.
-// Or, if you prefer, watch some Numberphile videos.
+// Go ahead, read it, really. I'll wait.
+// Or, if you prefer, watch some Numberphile videos. (Just keep in mind that the
+// vids in favor of pi are wrong, and those in favor of tau are right, because
+// the mathematicians aren't actually drawing with radians.)
 // Now that you're familiar with tau, do you not agree that Math.TAU 
 // makes a heck of a lot more sense than Math.PI?
 // Does anyone really find it easier to think in fractions of a semicircle
@@ -48,13 +50,15 @@ function brickInit() {
 document.addEventListener('keydown', function (e) {
   if (e.which == 39) {
     rightDown = true;
-  }
-  else if (e.which == 37){
+    leftDown = false;
+  } else if (e.which == 37) {
     leftDown = true;
+    rightDown = false;
   }
 });
 
 //and unset them when the right or left key is released
+
 document.addEventListener('keyup', function (e) {
   if (e.which == 39) {
     rightDown = false;
@@ -62,14 +66,14 @@ document.addEventListener('keyup', function (e) {
     leftDown = false;
   }
 });
-  
+
 //make a ball 
 var ball = {
   r: 10,
   //add some randomness to ball's starting position and momentum
   x: Math.floor(Math.random() * 800 + 1),
   y: Math.floor(Math.random() * 25 + 85),
-  dirX: Math.floor(Math.random() * 7 + 4),
+  dirX: Math.floor(Math.random() * 5 + 4),
   dirY: Math.floor(Math.random() * 5 + 2),
   color: 'goldenrod',
   draw: function () {
@@ -119,12 +123,12 @@ function draw() {
     }
   }
   // detect brick strikes
- var rowheight = brickH + brickPadding;
- var colwidth = brickW + brickPadding;
- var row = Math.floor(ball.y/rowheight);
- var col = Math.floor(ball.x/colwidth);
+ var rowHeight = brickH + brickPadding;
+ var colWidth = brickW + brickPadding;
+ var row = Math.floor(ball.y/rowHeight);
+ var col = Math.floor(ball.x/colWidth);
   //if hit, reverse motion and mark the brick as broken
-  if (ball.y < brickRows * rowheight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
+  if (ball.y < brickRows * rowHeight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
     ball.dirY = -ball.dirY;
     bricks[row][col] = 0;
   } 
@@ -137,8 +141,11 @@ function draw() {
   ball.x += ball.dirX;
   ball.y += ball.dirY;
 
-  if (rightDown && paddle.x < cvW - paddle.w) paddle.x += 8;
-  else if (leftDown && paddle.x > 0) paddle.x -= 8;
+  if (rightDown && paddle.x < cvW - paddle.w -8) {
+    paddle.x += 8;
+  }  else if (leftDown && paddle.x > 0) {
+    paddle.x -= 8;
+  }
 
   animFrame = window.requestAnimationFrame(draw); 
   
@@ -152,25 +159,24 @@ function draw() {
     ball.dirY = -ball.dirY;
   }
   if (ball.y + ball.r > cvH) {
-    setTimeout(function(){ 
-    }, 700); 
     alert('Ha, ha! You lose!');
     cancelAnimationFrame(animFrame);
-  } console.log(ball.x, ball.y,ball.dirX, ball.dirY);
+  } 
 }
 
-// start / stop game 
+// start game
 document.getElementById('start').addEventListener('click', function () {
   cancelAnimationFrame(animFrame);
   reset();
   brickInit();
   ball.x = Math.floor(Math.random() * 500 + 1);
   ball.y = Math.floor(Math.random() * 25 + 85);
-  ball.dirX = Math.floor(Math.random() * 7 + 4);
+  ball.dirX = Math.floor(Math.random() * 5 + 4);
   ball.dirY = Math.floor(Math.random() * 5 + 2);
   ball.draw();
   animFrame = window.requestAnimationFrame(draw);
 });
+// stop game
 document.getElementById('stop').addEventListener('click', function () {
   cancelAnimationFrame(animFrame);
 });
