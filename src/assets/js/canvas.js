@@ -55,13 +55,13 @@ document.addEventListener('keyup', function (e) {
   if (e.which == 39) rightDown = false;
   else if (e.which == 37) leftDown = false;
 });
- 
+
   
 //make a ball 
 var ball = {
   h: 20,
   w: 20,
-  radius: 10,
+  r: 10,
   //add some randomness to ball's starting position and momentum
   x: Math.floor(Math.random() * 800 + 1),
   y: Math.floor(Math.random() * 25 + 85),
@@ -70,7 +70,7 @@ var ball = {
   color: 'goldenrod',
   draw: function () {
     cx.beginPath();
-    cx.arc(this.x, this.y, this.radius, 0, Math.TAU, false);
+    cx.arc(this.x, this.y, this.r, 0, Math.TAU, false);
     cx.closePath();
     cx.fillStyle = this.color;
     cx.fill();
@@ -139,22 +139,18 @@ function draw() {
   animFrame = window.requestAnimationFrame(draw); 
   
   // ball boundary and paddle interaction
-  if (ball.x + ball.w > cvW || ball.x - ball.w < 0) {
+  if (ball.x + ball.r > cvW || ball.x - ball.r < 0) {
     ball.dirX = -ball.dirX;
   }
-  var hit =
-    (ball.y === paddle.y - ball.h) &&
-    (ball.x + ball.radius > paddle.x && 
-    ball.x - ball.radius < paddle.x + paddle.w);
-     
-  if (ball.y < 0 || hit) {
+  var hit = (ball.y + ball.r > paddle.y) && (ball.x > paddle.x && ball.x < paddle.x + paddle.w);    
+  if (ball.y - ball.r < 0 || hit) {
     ball.dirY = -ball.dirY;
-  } if (ball.y > cvH) {
+  } if (ball.y + ball.r > cvH) {
         setTimeout(function(){ 
       alert('You lose!');
       }, 700); 
     cancelAnimationFrame(animFrame);
-  }
+  } console.log(ball.x, ball.y,ball.dirX, ball.dirY);
 }
 
 // start / stop game 
@@ -162,7 +158,7 @@ document.getElementById('start').addEventListener('click', function () {
   cancelAnimationFrame(animFrame);
   reset();
   brickInit();
-  ball.x = Math.floor(Math.random() * 600 + 1);
+  ball.x = Math.floor(Math.random() * 500 + 1);
   ball.y = Math.floor(Math.random() * 25 + 85);
   ball.dirX = Math.floor(Math.random() * 7 + 4);
   ball.dirY = Math.floor(Math.random() * 5 + 2);
