@@ -1,184 +1,119 @@
-    var canvas = document.getElementById('canvas');
-    if (canvas && canvas.getContext) {
-      var context = canvas.getContext('2d');
-      if (context) {
-        //all objects
-        context.shadowOffsetX = 3;
-        context.shadowOffsetY = 3;
-        context.shadowBlur = 3;
-        context.shadowColor = 'rgba(0, 0, 0, 0.5)';
+// Drawing with radians is the best argument ever for using TAU instead of PI.
+// Read the Tau Manifesto at http://tauday.com/tau-manifesto.
+// Go ahead, read it really. I'll wait.
+// Or, if you prefer, watch some Numberphile videos.
+// Now that you're familiar with tau, do you not agree that Math.TAU 
+// make a heck of a lot more sense than Math.PI?
+// Does anyoe really find it easier to think in fractions of a semicircle
+// than fractions of a circle?
+// I, for one, do not. 
+// Enough with the jibber-jabber: Die, PI!
+// Henceforth, TAU is a property of the Math object, at least on this demo site.
 
-        //yellowgreen rect
-        context.fillStyle = 'yellowgreen';
-        context.fillRect(30, 20, 120, 120);
+var cv = document.getElementById('canvas');
+var cx = cv.getContext('2d');
+var cvH = cv.height;
+var cvW = cv.width;
+Math.TAU = Math.PI * 2;
+var coords = document.getElementById('coords');
+var rightDown = false;
+var leftDown = false;
+var intervalId = 0;
+var animFrame; //request/clear animation frame
+var running = false; // is the ball moving?
 
-        //tiling rect 
-    /*    
-      var imageObj = new Image();
-      imageObj.onload = function() {
-        var pattern = context.createPattern(imageObj, 'repeat');
+  // keypress info necessary for the paddle
+  //set rightDown or leftDown if the right or left keys are down
+  document.addEventListener('keydown', function (evt) {
+    if (evt.which == 39) rightDown = true;
+    else if (evt.which == 37) leftDown = true;
+ 
+  });
 
-        context.rect(200, 80, 240, 240);
-        context.fillStyle = pattern;
-        context.fill();
-      };
-      imageObj.src = 'http://burtleburtle.net/bob/tile/fatigue.gif';
-   */      
-        context.fillStyle = 'red';
-        context.fillRect(180, 60, 160, 160);
-
-        //circle
-        context.arc(360, 240, 160, 0, Math.PI * 2, false);
-
-        var grd = context.createRadialGradient(260, 110, 10, 238, 50, 300);
-        // light blue
-        grd.addColorStop(0, '#8ED6FF');
-        // dark blue
-        grd.addColorStop(1, '#004CB3');
-        context.strokeStyle = '#00ffff';
-        context.stroke();
-      }
-      context.fillStyle = grd;
-      context.fill();
-
-      //text
-      context.font = '40pt Calibri';
-      context.fillStyle = 'blue';
-      context.fillText('Hello World!', 250, 380);
-
-      context.beginPath();
-      context.moveTo(280, 120);
-
-      // squiggle
-      // line 1
-      context.lineTo(400, 260);
-      // quadratic curve
-      context.quadraticCurveTo(430, 300, 450, 220);
-      // bezier curve
-      context.bezierCurveTo(490, 60, 500, 300, 600, 250);
-      // line 2
-      context.lineTo(700, 190);
-
-      context.lineWidth = 5;
-      context.strokeStyle = 'green';
-      context.stroke();
-
-      //quadratic and bezier control points
-      context.beginPath();
-      context.moveTo(430, 300);
-      context.lineTo(435, 300);
-      context.lineWidth = 5;
-      context.strokeStyle = 'purple';
-      context.stroke();
-
-      context.beginPath();
-      context.moveTo(490, 60);
-      context.lineTo(495, 60);
-      context.lineWidth = 5;
-      context.strokeStyle = 'purple';
-      context.stroke();
-
-      context.beginPath();
-      context.moveTo(500, 300);
-      context.lineTo(505, 300);
-      context.lineWidth = 5;
-      context.strokeStyle = 'purple';
-      context.stroke();
-
-      // set line width for all line joins
-      context.lineWidth = 20;
-      context.strokeStyle = 'rgba(255,0,255,0.8)';
-
-      // miter line join (left)
-      context.beginPath();
-      context.moveTo(399, 150);
-      context.lineTo(449, 50);
-      context.lineTo(499, 150);
-      context.lineJoin = 'miter';
-      context.stroke();
-
-      // round line join (middle)
-      context.beginPath();
-      context.moveTo(539, 150);
-      context.lineTo(589, 50);
-      context.lineTo(639, 150);
-      context.lineJoin = 'round';
-      context.stroke();
-
-      // bevel line join (right)
-      context.beginPath();
-      context.moveTo(679, 150);
-      context.lineTo(729, 50);
-      context.lineTo(779, 150);
-      context.lineJoin = 'bevel';
-      context.stroke();
-
-      // maroon pseudosquare
-      context.beginPath();
-      context.moveTo(600, 250);
-      context.lineTo(650, 250);
-      context.lineWidth = 50;
-      context.strokeStyle = 'rgba(153,0,0,0.7)';
-      context.stroke();
-
-      //blue mostly rounded rectangle
-      var rectWidth = 168;
-      var rectHeight = 100;
-      var rectX = 680;
-      var rectY = 100;
-      var radius = 30;
-
-      context.beginPath();
-      context.moveTo(rectX, rectY);
-      context.lineTo(rectX + rectWidth - radius, rectY);
-      context.arcTo(
-        rectX + rectWidth, rectY,
-        rectX + rectWidth, rectY + rectHeight,
-        radius, rectY + radius, radius);
-      context.lineTo(rectX + rectWidth, rectY + rectHeight);
-      context.lineTo(rectX + radius, rectY + rectHeight);
-      context.arcTo(
-        rectX, rectY + rectHeight,
-        rectX, rectY,
-        radius);
-      context.lineTo(rectX, rectY);
-      context.lineWidth = 2;
-      context.fillStyle = 'rgba(0,153,204,0.5)';
-      context.fill();
-      context.strokeStyle = '#6699aa';
-      context.stroke();
-
-      //yellow rectangle
-      context.beginPath();
-      context.rect(780, 250, 200, 150);
-      // add linear gradient
-      var gradient = context.createLinearGradient(780, 250, 980, 400);
-      // white
-      gradient.addColorStop(0, '#ffffff');
-      // yellowgreen
-      gradient.addColorStop(1, '#99aa00');
-      context.fillStyle = gradient;
-      context.fill();
-      context.lineWidth = 1;
-      context.strokeStyle = 'black';
-      context.stroke();
-      
-      //moon
-    var moonImg = document.createElement('img');  
-    moonImg.src ='https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/FullMoon2010.jpg/292px-FullMoon2010.jpg';
-    moonImg.onload = function() {
-    context.save();
-    context.beginPath();
-    context.arc(166,161,121, 0, Math.PI * 2, true);
-    context.closePath();
-    context.clip();
-
-    context.drawImage(moonImg, 20, 20, 292, 278);
-
-    context.beginPath();
-    //context.arc(0, 0, 0, 0, Math.PI * 2, true);
-    context.clip();
-    context.closePath();
-    context.restore();
+  //and unset them when the right or left key is released
+  document.addEventListener('keyup', function (evt) {
+    if (evt.which == 39) rightDown = false;
+    else if (evt.which == 37) leftDown = false;
+  });
+  
+//make a ball 
+var ball = {
+  radius: 10,
+  x: 35,
+  y: 35,
+  h: 20,
+  w: 20,
+  dirX: 5,
+  dirY: 1,
+  color: 'goldenrod',
+  draw: function () {
+    cx.beginPath();
+    cx.arc(this.x, this.y, this.radius, 0, Math.TAU, false);
+    cx.closePath();
+    cx.fillStyle = this.color;
+    cx.fill();
+  }
 };
-    }
+
+
+//paddle 
+var paddle = {
+  x: cvW /2 - 50 ,
+  y: cvH - 10,
+  h: 10,
+  w: 100,
+  draw: function () {
+    cx.fillStyle = 'yellowgreen';
+    cx.fillRect(this.x, this.y, this.w, this.h);
+  }
+};
+
+//clear
+function clear() {
+  cx.fillStyle = 'rgba(0, 0, 0, 0.3)';
+  cx.fillRect(0, 0, cvW, cvH);
+}
+  
+//drawing movement and animation
+function draw() {
+  clear();
+  
+  // draw ball and paddle
+  ball.draw();
+  paddle.draw();
+
+  ball.x += ball.dirX;
+  ball.y += ball.dirY;
+
+  if (rightDown) paddle.x += 5;
+  else if (leftDown) paddle.x -= 5;
+
+  coords.innerHTML = ball.x + ', ' + ball.y;
+  var hit =
+    (ball.y === paddle.y - ball.h) &&
+    (ball.x > paddle.x && ball.x < paddle.x + paddle.w);
+  animFrame = window.requestAnimationFrame(draw); 
+  // ball boundary and paddle interaction
+   console.log(ball.x + ', ' + ball.y + ', ' + hit + ', ' + paddle.x + ', ' + paddle.y + ', ' + rightDown);
+  if (ball.x + ball.w > cvW || ball.x - ball.w < 0) {
+    ball.dirX = -ball.dirX;
+  }
+  if (ball.y < 0 || hit) {
+    ball.dirY = -ball.dirY;
+  } if (ball.y > cvH) {
+    alert('You lose!');
+    cancelAnimationFrame(animFrame);
+  }
+}
+
+//start / stop motion 
+cv.addEventListener('mouseover', function () {
+  animFrame = window.requestAnimationFrame(draw);
+  running = true;
+});
+cv.addEventListener('mouseout', function () {
+  cancelAnimationFrame(animFrame);
+  running = false;
+});
+
+ball.draw();
