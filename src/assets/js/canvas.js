@@ -17,10 +17,11 @@ var cx = cv.getContext('2d');
 var cvH = cv.height;
 var cvW = cv.width;
 Math.TAU = Math.PI * 2; // Throwing in the tau. Get it? Tau ~ towel? 
-var coords = document.getElementById('coords');
+var scoreDisplay = document.getElementById('scoreDisplay');
+var score = 0;
 var rightDown = false;
 var leftDown = false;
-var animFrame; 
+var animFrame;
 var bricks;
 var brickRows;
 var brickCols;
@@ -28,6 +29,7 @@ var brickW;
 var brickH;
 var brickPadding; // kind of a contradiction in terms, isn't it?
 var rowColors = ["#ca8", "#a86", "#864", "#632", "#410"];
+
 
 function brickInit() {
   brickRows = 5;
@@ -46,7 +48,7 @@ function brickInit() {
 }
 
 // keypress info for the paddle
-//set rightDown or leftDown if the right or left keys are down
+// set rightDown or leftDown if the right or left keys are down
 document.addEventListener('keydown', function (e) {
   if (e.which == 39) {
     rightDown = true;
@@ -71,7 +73,7 @@ document.addEventListener('keyup', function (e) {
 var ball = {
   r: 10,
   //add some randomness to ball's starting position and momentum
-  x: Math.floor(Math.random() * 800 + 1),
+  x: Math.floor(Math.random() * 500 + 20),
   y: Math.floor(Math.random() * 25 + 85),
   dirX: Math.floor(Math.random() * 5 + 4),
   dirY: Math.floor(Math.random() * 5 + 2),
@@ -110,29 +112,35 @@ function reset() {
 }  
 
 // the heart of the game: drawing movement and animation
-function draw() {
+function animate() {
   // draw bricks
   for (var i = 0; i < brickRows; i++) {
     cx.fillStyle = rowColors[i];
-    for (var j=0; j < brickCols; j++) {
+    for (var j = 0; j < brickCols; j++) {
       if (bricks[i][j] == 1) {
-       cx.fillRect((j * (brickW + brickPadding)) + brickPadding, 
-             (i * (brickH + brickPadding)) + brickPadding,
-             brickW, brickH);
+        cx.fillRect((j * (brickW + brickPadding)) + brickPadding,
+          (i * (brickH + brickPadding)) + brickPadding,
+          brickW, brickH);
       }
     }
   }
   // detect brick strikes
- var rowHeight = brickH + brickPadding;
- var colWidth = brickW + brickPadding;
- var row = Math.floor(ball.y/rowHeight);
- var col = Math.floor(ball.x/colWidth);
-  //if hit, reverse motion and mark the brick as broken
+  var rowHeight = brickH + brickPadding;
+  var colWidth = brickW + brickPadding;
+  var row = Math.floor(ball.y / rowHeight);
+  var col = Math.floor(ball.x / colWidth);
+  var scoreToShow = String(score);
+  // if hit, reverse motion and mark the brick as gone and increment score
   if (ball.y < brickRows * rowHeight && row >= 0 && col >= 0 && bricks[row][col] == 1) {
     ball.dirY = -ball.dirY;
     bricks[row][col] = 0;
-  } 
-  
+    score += 100;
+  }
+  scoreDisplay.innerHTML = scoreToShow;
+  if (score >= 2500) {
+    alert('Congratulations, you won!');
+    cancelAnimationFrame(animFrame);
+  }
   clear();
   
   // draw ball and paddle
@@ -141,27 +149,27 @@ function draw() {
   ball.x += ball.dirX;
   ball.y += ball.dirY;
 
-  if (rightDown && paddle.x < cvW - paddle.w -8) {
+  if (rightDown && paddle.x < cvW - paddle.w - 8) {
     paddle.x += 8;
-  }  else if (leftDown && paddle.x > 0) {
+  } else if (leftDown && paddle.x > 0) {
     paddle.x -= 8;
   }
 
-  animFrame = window.requestAnimationFrame(draw); 
+  animFrame = window.requestAnimationFrame(animate); 
   
   // ball boundary and paddle interaction
   if (ball.x + ball.r > cvW || ball.x - ball.r < 0) {
     ball.dirX = -ball.dirX;
   }
   // define a hit with the paddle 
-  var hit = (ball.y + ball.r > paddle.y) && (ball.x > paddle.x && ball.x < paddle.x + paddle.w);    
+  var hit = (ball.y + ball.r > paddle.y) && (ball.x > paddle.x && ball.x < paddle.x + paddle.w);
   if (ball.y - ball.r < 0 || hit) {
     ball.dirY = -ball.dirY;
   }
   if (ball.y + ball.r > cvH) {
-    alert('Ha, ha! You lose!');
+    alert('Too bad, you lost!');
     cancelAnimationFrame(animFrame);
-  } 
+  }
 }
 
 // start game
@@ -169,12 +177,13 @@ document.getElementById('start').addEventListener('click', function () {
   cancelAnimationFrame(animFrame);
   reset();
   brickInit();
-  ball.x = Math.floor(Math.random() * 500 + 1);
+  score = 0;
+  ball.x = Math.floor(Math.random() * 500 + 20);
   ball.y = Math.floor(Math.random() * 25 + 85);
   ball.dirX = Math.floor(Math.random() * 5 + 4);
   ball.dirY = Math.floor(Math.random() * 5 + 2);
   ball.draw();
-  animFrame = window.requestAnimationFrame(draw);
+  animFrame = window.requestAnimationFrame(animate);
 });
 // stop game
 document.getElementById('stop').addEventListener('click', function () {

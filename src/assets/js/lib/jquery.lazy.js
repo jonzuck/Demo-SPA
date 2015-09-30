@@ -19,7 +19,7 @@
     
       //for lazy-loading JSON info into an HTML element
       var scrollToHTML = $('.lazyHTML').offset().top; 
-      var inRangeHTML = amountPageScrolled > scrollToHTML - 200;
+      var inRangeHTML = amountPageScrolled > scrollToHTML - 200 && amountPageScrolled < scrollToHTML + 600;
       if (inRangeHTML && !document.getElementById('galileoFacts') && document.getElementById('galileo').innerHTML == '') {
         
         $.getJSON("galileo.json", function (data) {
