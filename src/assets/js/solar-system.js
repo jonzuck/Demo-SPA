@@ -23,25 +23,27 @@ var play = document.getElementById('play');
 play.addEventListener('click', function () {
   var planetArray = [1, 2, 3, 4, 5, 6, 7, 8];
   var p = planetArray[Math.floor((Math.random() * 8))];
-
-  //fill in the information table -- only the first time
-  var pInfo = document.getElementById('planetInfo');
-  if (pInfo.innerHTML === '') {
-    pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
-    pInfo.constructor.prototype.list = list;
-    var list = function () {
-      for (var i in solarSystem) {
-        pInfo.innerHTML += "\n<tr>\<th>" +
-        solarSystem[i].name + "</th><td>" +
-        solarSystem[i].year + "</td><td>" +
-        solarSystem[i].day + "</td><td>" +
-        solarSystem[i].distance + "</td>\n</tr>";
-      }
-        window.scrollBy(0, 150);
-    };
-  }
-
-
+});
+               
+//Show info button
+var pInfo = document.getElementById('planetInfo');
+var showInfo = document.getElementById('showInfo');
+play.addEventListener('click', function () {  
+if (pInfo.innerHTML === '') {
+  pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
+  pInfo.constructor.prototype.list = list;
+  var list = function () {
+    for (var i in solarSystem) {
+      pInfo.innerHTML += "\n<tr>\<th>" +
+      solarSystem[i].name + "</th><td>" +
+      solarSystem[i].year + "</td><td>" +
+      solarSystem[i].day + "</td><td>" +
+      solarSystem[i].distance + "</td>\n</tr>";
+    }
+    window.scrollBy(0, 150);
+  };
+}
+}
   //create a planet at random
   var randomPlanet = "planet" + p;
 
