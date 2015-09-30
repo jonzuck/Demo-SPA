@@ -11,7 +11,7 @@
       for (var i = 0; i < lazyArray.length; i++) {
         var scrollToElement = $(lazyArray[i]).offset().top;
         var inRange = amountPageScrolled > scrollToElement - 200;
-        if (inRange) {
+        if (inRange && !lazyArray[i].getAttribute('src')) {
           var imgSrc = lazyArray[i].getAttribute('data-src');
           lazyArray[i].setAttribute('src', imgSrc);
         }
@@ -19,8 +19,9 @@
     
       //for lazy-loading JSON info into an HTML element
       var scrollToHTML = $('.lazyHTML').offset().top; 
-      var inRange = amountPageScrolled > scrollToHTML - 200;
-      if (inRange && document.getElementById('galileo').innerHTML === '') {
+      var inRangeHTML = amountPageScrolled > scrollToHTML - 200;
+      if (inRangeHTML && !document.getElementById('galileoFacts')) {
+        
         $.getJSON("galileo.json", function (data) {
           var facts = [];
           $.each(data, function (key, val) {

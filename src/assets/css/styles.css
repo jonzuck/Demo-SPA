@@ -48,3 +48,15 @@ ul.square {
 ul.diamond {
 	list-style: disc;
 }
+#canvasBg {
+	background-color: #222;
+	padding: 10px;
+}
+#canvas {
+  display: block;
+  margin: 0 auto;
+  border: 1px solid #357;
+}
+#mycanvas {
+	margin-top: 20px;
+}
