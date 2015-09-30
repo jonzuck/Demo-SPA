@@ -37,12 +37,8 @@ play.addEventListener('click', function () {
         solarSystem[i].day + "</td><td>" +
         solarSystem[i].distance + "</td>\n</tr>";
       }
+        window.scrollBy(0, 150);
     };
-    setTimeout(function () {
-      //Lebensraum!
-      window.scrollBy(0, 150);
-      list();
-    }, 250);
   }
 
 
