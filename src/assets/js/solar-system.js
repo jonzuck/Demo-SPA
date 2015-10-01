@@ -17,40 +17,17 @@ var solarSystem = {
   planet7: new Planet('Uranus', '84.01', '0.72', '19.22'),
   planet8: new Planet('Neptune', '164.8', '0.67', '30.06')
 };
+var planetArray = [1, 2, 3, 4, 5, 6, 7, 8];
+var p = planetArray[Math.floor((Math.random() * 8))];
 
 // play button
 var play = document.getElementById('play');
 play.addEventListener('click', function () {
-  var planetArray = [1, 2, 3, 4, 5, 6, 7, 8];
-  var p = planetArray[Math.floor((Math.random() * 8))];
-
-  //fill in the information table -- only the first time
-  var pInfo = document.getElementById('planetInfo');
-  if (pInfo.innerHTML === '') {
-    pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
-    pInfo.constructor.prototype.list = list;
-    var list = function () {
-      for (var i in solarSystem) {
-        pInfo.innerHTML += "\n<tr>\<th>" +
-        solarSystem[i].name + "</th><td>" +
-        solarSystem[i].year + "</td><td>" +
-        solarSystem[i].day + "</td><td>" +
-        solarSystem[i].distance + "</td>\n</tr>";
-      }
-    };
-    setTimeout(function () {
-      //Lebensraum!
-      window.scrollBy(0, 150);
-      list();
-    }, 250);
-  }
-
-
-  //create a planet at random
+  // create a planet at random
   var randomPlanet = "planet" + p;
-
+  // say hi, like a friendly planet should
   Planet.prototype.greeting = function () {
-    //if it isn't Earth
+    // if it isn't Earth
     if (solarSystem[randomPlanet] !== solarSystem.planet3) {
       var msg = "";
       var result = confirm("Hello, I'm " + this.name +
@@ -63,15 +40,41 @@ play.addEventListener('click', function () {
       } else {
         msg = "Fine. Be that way. \nHope your next probe crashes, jerk!";
       }
-      //if it is Earth
+      // if it is Earth
     } else if (solarSystem[randomPlanet] === solarSystem.planet3) {
       msg = "Hey, there, Earthling! \nYou already know me. \nJust hit the button again for another planet.";
     }
     alert(msg);
   };
-
   setTimeout(function () {  
-    //launch the random planet's new greeting.
+    // launch the random planet's new greeting.
     solarSystem[randomPlanet].greeting();
   }, 300);
+});
+
+// show Info button
+var showInfo = document.getElementById('showInfo');
+showInfo.addEventListener('click', function () {
+  var pInfo = document.getElementById('planetInfo');
+  pInfo.style.opacity = '0';
+  if (pInfo.innerHTML === '') {
+    pInfo.innerHTML = "<tr class='top-header-row'><th>Name</th><th class='top-header-cell'>Year</th><th class='top-header-cell'>Day</th><th class='top-header-cell'>Distance from Sun</th></tr>";
+    pInfo.constructor.prototype.list = list;
+    var list = function () {
+      for (var i in solarSystem) {
+        pInfo.innerHTML += "\n<tr>\<th>" +
+        solarSystem[i].name + "</th><td>" +
+        solarSystem[i].year + "</td><td>" +
+        solarSystem[i].day + "</td><td>" +
+        solarSystem[i].distance + "</td>\n</tr>";
+      }
+    };
+  }
+  list();
+  var j = 0;
+  setInterval(function () {
+    j += 0.05;
+    var k = String(j);
+    pInfo.style.opacity = k;
+  }, 50);
 });

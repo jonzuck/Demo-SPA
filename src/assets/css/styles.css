@@ -52,6 +52,9 @@ ul.diamond {
 	background-color: #222;
 	padding: 10px;
 }
+#canvasBg p {
+	color: #fff;
+}
 #canvas {
   display: block;
   margin: 0 auto;
@@ -59,4 +62,7 @@ ul.diamond {
 }
 #mycanvas {
 	margin-top: 20px;
+}
+#scoreDisplay {
+	width: 70px;
 }
